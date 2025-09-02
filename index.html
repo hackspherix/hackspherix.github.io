@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>CYBER AWARENESS</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f0f0f;
+      color: #f0f0f0;
+      overflow-x: hidden;
+    }
+
+    
+    a, button {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #000;
+      color: white;
+      padding: 30px 20px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-sizing: border-box;
+      height: 70px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 25px;
+      color: #32cd32;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      height: 20px;
+      width: 28px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: #32cd32;
+      border-radius: 3px;
+      transition: all 0.5s ease;
+      margin: 4px 0;
+    }
+
+    .menu-toggle {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .menu-toggle:focus {
+       outline: none;
+    }
+
+    .menu-toggle span {
+      pointer-events: none; /* span-കളിൽ tap highlight വരാതിരിക്കാൻ */
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    nav li {
+      list-style: none;
+    }
+
+    nav a {
+      color: #32cd32;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 5px;
+      height: 2px;
+      background-color: #32cd32;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+      transform-origin: left;
+    }
+
+    nav a:hover {
+      color: #aaffaa;
+      text-shadow: 0 0 5px #32cd32, 0 0 10px #32cd32;
+    }
+
+    nav a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .search-wrapper {
+      display: block;
+    }
+
+    .search-wrapper form {
+      position: relative;
+    }
+
+    .search-wrapper input[type="search"] {
+      width: 100%;
+      padding: 10px 40px 10px 15px;
+      border-radius: 20px;
+      border: none;
+      background: #2a2a2a;
+      color: #f0f0f0;
+      font-size: 1rem;
+    }
+
+    .search-wrapper button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #32cd32;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+   
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    @media (min-width: 769px) {
+        .search-wrapper {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px; /* Search bar-ന്റെ വീതി ഇവിടെ മാറ്റാം */
+        }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        justify-content: flex-start;
+        background: #1c1c1c;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 250px;
+        padding-top: 10px;
+        transition: right 0.3s ease-in-out;
+        z-index: 1000;
+        gap: 0;
+      }
+      nav.show {
+        right: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .search-wrapper {
+        display: block;
+        padding: 20px;
+        border-bottom: 1px solid #2a2a2a;
+        margin-top: 40px;
+        position: static; /* Mobile-ൽ search bar-ന്റെ പൊസിഷൻ റീസെറ്റ് ചെയ്യുന്നു */
+        transform: none;
+        width: auto;
+      }
+
+      nav a {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        text-align: left;
+        border-bottom: 1px solid #2a2a2a;
+        font-size: 1rem;
+        font-weight: normal;
+        gap: 10px;
+        margin-top: 5px;
+      }
+    }
+
+    section {
+      padding: 100px 20px 60px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    #about, #contact, #feedback, #subscribe {
+      display: none;
+    }
+
+    h2 {
+      color: #32cd32;
+    }
+
+    .card {
+      background: #1f1f1f;
+      padding: 20px;
+      margin: 10px 0;
+      border-left: 5px solid #32cd32;
+      border-radius: 6px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease-out;
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(50, 205, 50, 0.3);
+    }
+
+    .card:active {
+      transform: scale(0.98);
+      box-shadow: 0 4px 12px rgba(50, 205, 50, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    #contact, #share, #about, #feedback, #subscribe {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease-out;
+    }
+
+    #contact.show, #share.show, #about.show, #feedback.show, #subscribe.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      background: #000;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 15px;
+      background: #32cd32;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    #loader-wrapper {
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background: #000;
+       z-index: 2000;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    #loader {
+       border: 5px solid #333;
+       border-top: 5px solid #32cd32;
+       border-radius: 50%;
+       width: 60px;
+       height: 60px;
+       animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #loader-wrapper.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .expandable {
+      display: none;
+    }
+
+    .expandable.active {
+      display: block;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .person {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .person img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #fff;
+    }
+
+    .name {
+      margin-top: 10px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    /* Scroll to Top Button Styles */
+    #scrollToTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 99;
+      font-size: 1.5rem;
+      border: none;
+      outline: none;
+      background-color: #32cd32;
+      color: #000;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 50%;
+      transition: opacity 0.3s ease;
+      opacity: 0.9;
+    }
+    
+    #scrollToTopBtn:hover {
+      opacity: 0.9;
+      background-color: #32cd32;
+    }
+
+    /* Feedback Form Styles */
+    .feedback-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background-color: #1f1f1f;
+      padding: 25px;
+      border-radius: 8px;
+    }
+
+    .feedback-form label {
+      color: #f0f0f0;
+      font-weight: bold;
+    }
+
+    .feedback-form input,
+    .feedback-form textarea {
+      padding: 12px;
+      border-radius: 5px;
+      border: 1px solid #555;
+      background-color: #2a2a2a;
+      color: #f0f0f0;
+      font-size: 1rem;
+    }
+
+    .feedback-form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .feedback-form button {
+      padding: 12px 20px;
+      background-color: #32cd32;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .feedback-form button:hover {
+      background-color: #aaffaa;
+    }
+
+    /* 404 Full-screen Styles */
+    #no-results {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      transition: opacity 0.5s ease-out;
+      opacity: 1;
+    }
+    #no-results.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+    #no-results h2 {
+      color: #e81e63;
+      font-size: 4rem;
+      margin-bottom: 0;
+    }
+    #no-results p {
+      margin-top: 10px;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HackSpherix</h1>
+    <div class="menu-toggle" id="menu-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="nav-menu">
+      <div class="search-wrapper">
+        <form id="search-form">
+          <input type="search" id="search-input" placeholder="Search here..." />
+          <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+      <li><a href="#about" id="about-btn"><i class="fa-solid fa-info-circle"></i> About</a></li>
+      <li><a href="#contact" id="contact-btn"><i class="fa-solid fa-user"></i> Contact</a></li>
+      <li><a href="#feedback" id="feedback-btn"><i class="fa-solid fa-comment-dots"></i> Feedback</a></li>
+      <li><a href="#subscribe" id="subscribe-btn"><i class="fa-solid fa-envelope"></i> Subscribe</a></li>
+      <li><a href="javascript:void(0);" onclick="sharePage()"><i class="fa-solid fa-share"></i> Share</a></li>
+    </nav>
+  </header>
+
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+  </div>
+
+  <section id="tutorials">
+    <h2>Latest Tutorials</h2>
+    <div class="card">
+      <h3 style="color: #e81e63;">Cyber Awareness and Cybersecurity Attacks</h3>
+      <p>Stay ahead of cyber threats by learning how attackers operate and how to defend yourself.</p>
+      <a class="btn" onclick="toggleSection('fivetimes1')">Read More</a>
+    </div>
+    <div class="card expandable" id="fivetimes1">
+      <h2 style="color: #32cd32;">Common Cyber Attacks</h2>
+      <ul>
+        <li>
+          <h3 style="color: #e81e63;">Phishing</h3>
+          <p>Tricks users into revealing sensitive info via fake emails or websites.</p>
+        </li>
+        <li>
+          <h3 style="color: #e81e63;">Malware</h3>
+          <p>Software designed to damage or gain unauthorized access to systems.</p>
+        </li>
+        <li>
+          <h3 style="color: #e81e63;">Ransomware</h3>
+          <p>Encrypts your data and demands payment to restore access.</p>
+        </li>
+        <li>
+          <h3 style="color: #e81e63;">SQL Injection</h3>
+          <p>Exploits input fields to execute malicious database queries.</p>
+        </li>
+        <li>
+          <h3 style="color: #e81e63;">DDoS</h3>
+          <p>Overwhelms systems with traffic, causing downtime or crashes.</p>
+        </li>
+        <li>
+          <h3 style="color: #e81e63;">XSS</h3>
+          <p>Injects scripts into websites to hijack sessions or steal data.</p>
+        </li>
+      </ul>
+      <a class="btn" onclick="toggleSection('fivetimes1')">Show Less</a>
+    </div>
+  </section>
+
+  <section id="strong">
+    <div class="card">
+      <h2 style="color: #B22222;">How to protect your data</h2>
+      <p>Think before you click — it's the first step to stop hackers.</p>
+      <a class="btn" onclick="toggleSection('fivetimes2')">Read More</a>
+    </div>
+    <div class="card expandable" id="fivetimes2">
+      <ul>
+        <li><h3 style="color: #e81e63;">Use strong passwords</h3>Use 12+ characters with a mix of letters, numbers, and symbols. Avoid common words and reuse.</li>
+        <li><h3 style="color: #e81e63;">Enable 2FA:</h3> Use two-factor authentication for extra protection.</li>
+        <li><h3 style="color: #e81e63;">Don’t Click Unknown Links:</h3> Always verify URLs in messages or emails.</li>
+        <li><h3 style="color: #e81e63;">Keep Software Updated:</h3> Patch known vulnerabilities quickly with updates.</li>
+        <li><h3 style="color: #e81e63;">Backup Regularly:</h3> Store backups in the cloud and on offline devices.</li>
+        <li><h3 style="color: #e81e63;">Awareness Training:</h3> Educate others to prevent accidental breaches.</li>
+      </ul>
+      <a class="btn" onclick="toggleSection('fivetimes2')">Show Less</a>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Want to collaborate or ask a question? Reach out via email:</p>
+    <p><a href="mailto:hackspherix@gmail.com" style="color:#32cd32;">hackspherix@official.com</a></p>
+  </section>
+  
+  <section id="feedback">
+    <h2>Send Feedback</h2>
+    <p>We'd love to hear your thoughts! Help us improve by sending your feedback.</p>
+    <form class="feedback-form" action="https://formspree.io/f/mkgvvypq" method="POST">
+      <label for="feedback-name">Your Name </label>
+      <input type="text" id="feedback-name" name="name" placeholder="Enter your name">
+      <label for="feedback-email">Your Email </label>
+      <input type="email" id="feedback-email" name="_replyto" placeholder="Enter your email">
+      <label for="feedback-message">Your Feedback</label>
+      <textarea id="feedback-message" name="message" placeholder="Type your feedback here..." required></textarea>
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </section>
+
+  <section id="subscribe">
+    <h2>Subscribe</h2>
+    <p>Stay updated with our latest tutorials and cybersecurity news. Subscribe now!</p>
+    <form class="feedback-form" action="https://formspree.io/f/mkgvvypq" method="POST">
+      <label for="subscribe-email">Your Email</label>
+      <input type="email" id="subscribe-email" name="_replyto" placeholder="Enter your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <div class="row">
+      <div class="person">
+        <img src="Afil.jpg" alt="AfilPM">
+        <div class="name">AFILPM</div>
+      </div>
+    </div>
+    <p style="text-align: center;">Webpage created by AFILPM</p>
+  </section>
+
+  <footer style="background-color: #111; color: #fff; padding: 30px 20px; text-align: center;">
+    <div style="max-width: 1200px; margin: auto;">
+      <h3 style="margin-bottom: 10px;">HackSpherix</h3>
+      <div style="margin-bottom: 15px;">
+        <a href="#about" id="about-btn" style="margin: 0 10px; color: #fff; text-decoration: none;">About</a> |
+        <a href="tel:+91756820814" id="contact-btn" style="margin: 0 10px; color: #fff; text-decoration: none;">Contact</a> |
+        <a href="https://youtube.com/@HACKSPHERIX" style="margin: 0 10px; color: #fff; text-decoration: none;">Youtube</a>
+      </div>
+    </div>
+    <p style="font-size: 14px;">&copy; 2025 HackSpherix. All rights reserved.</p>
+  </footer>
+
+  <button onclick="scrollToTop()" id="scrollToTopBtn" title="Go to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('nav-menu');
+  const searchInput = document.getElementById("search-input");
+  const searchForm = document.getElementById("search-form");
+  const cards = document.querySelectorAll('.card');
+  const contact = document.getElementById('contact');
+  const about = document.getElementById('about');
+  const feedback = document.getElementById('feedback');
+  const subscribe = document.getElementById('subscribe');
+  const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+  // ---------------- MENU TOGGLE ----------------
+  toggle.addEventListener('click', (e) => {
+    nav.classList.toggle('show');
+    toggle.classList.toggle('active');
+    const expanded = toggle.classList.contains('active');
+    toggle.setAttribute("aria-expanded", expanded);
+    e.stopPropagation();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('show') && !nav.contains(e.target) && e.target !== toggle) {
+      nav.classList.remove('show');
+      toggle.classList.remove('active');
+      toggle.setAttribute("aria-expanded", false);
+    }
+  });
+
+  nav.addEventListener('click', e => {
+    if (e.target.tagName === "A") {
+      nav.classList.remove('show');
+      toggle.classList.remove('active');
+      toggle.setAttribute("aria-expanded", false);
+    }
+  });
+
+  // ---------------- SCROLL ANIMATION ----------------
+  function animateOnScroll() {
+    const triggerBottom = window.innerHeight * 0.9;
+    cards.forEach(card => {
+      const cardTop = card.getBoundingClientRect().top;
+      if (cardTop < triggerBottom) {
+        card.classList.add('show');
+      }
+    });
+    [contact, about, feedback, subscribe].forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      if (sectionTop < triggerBottom) {
+        section.classList.add('show');
+      }
+    });
+
+    // Show/hide scroll to top button
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      scrollToTopBtn.style.display = "block";
+    } else {
+      scrollToTopBtn.style.display = "none";
+    }
+  }
+
+  window.addEventListener('scroll', animateOnScroll);
+  window.addEventListener('load', () => {
+    animateOnScroll();
+    // Loader fade-out
+    const loader = document.getElementById('loader-wrapper');
+    setTimeout(() => loader.classList.add('fade-out'), 1000);
+  });
+
+  // ---------------- SECTION TOGGLE ----------------
+  let currentSection = null;
+  document.querySelectorAll('#about-btn, footer a[href="#about"]').forEach(el => {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      toggleSectionVisibility('about');
+    });
+  });
+
+  document.querySelectorAll('#contact-btn, footer a[href^="tel"]').forEach(el => {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      toggleSectionVisibility('contact');
+    });
+  });
+
+  document.getElementById('feedback-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+      toggleSectionVisibility('feedback');
+  });
+
+  document.getElementById('subscribe-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    toggleSectionVisibility('subscribe');
+  });
+
+  function toggleSectionVisibility(sectionId) {
+    const section = document.getElementById(sectionId);
+    [contact, about, feedback, subscribe].forEach(s => {
+      s.style.display = 'none';
+      if (s.classList.contains('show')) s.classList.remove('show');
+    });
+
+    if (currentSection === sectionId) {
+      currentSection = null;
+    } else {
+      section.style.display = 'block';
+      setTimeout(() => section.classList.add('show'), 10);
+      section.scrollIntoView({ behavior: 'smooth' });
+      currentSection = sectionId;
+    }
+  }
+
+  // ---------------- SHARE BUTTON ----------------
+  function sharePage() {
+    if (navigator.share) {
+      navigator.share({
+        title: document.title,
+        text: "Check out this amazing web app: HackSpherix!",
+        url: window.location.href
+      }).catch(console.error);
+    } else {
+      alert("Sharing not supported on this browser.");
+    }
+  }
+  window.sharePage = sharePage;
+
+  // ---------------- EXPANDABLE SECTIONS ----------------
+  function toggleSection(id) {
+    const section = document.getElementById(id);
+    section.classList.toggle("active");
+
+    // Update the button text
+    const buttons = document.querySelectorAll(`a.btn[onclick="toggleSection('${id}')"]`);
+    buttons.forEach(button => {
+      button.textContent = section.classList.contains("active") ? "Show Less" : "Read More";
+    });
+
+    if (section.classList.contains("active")) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+  window.toggleSection = toggleSection;
+
+  // ---------------- BLOCK SHORTCUTS ----------------
+  document.onkeydown = function(e) {
+    if (e.ctrlKey && ['c', 'u', 's', 'a'].includes(e.key.toLowerCase())) {
+      e.preventDefault();
+      return false;
+    }
+  };
+
+  document.addEventListener('selectstart', e => e.preventDefault());
+
+  // ---------------- SEARCH WITH FIXED LOGIC ----------------
+  searchForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const query = searchInput.value.toLowerCase().trim();
+    let matchFound = false;
+
+    // Remove old highlights
+    document.querySelectorAll("mark").forEach(mark => {
+      const parent = mark.parentNode;
+      parent.replaceChild(document.createTextNode(mark.textContent), mark);
+      parent.normalize();
+    });
+
+    // Remove old 404 if exists
+    const old404 = document.getElementById("no-results");
+    if (old404) old404.remove();
+
+    if (query !== "") {
+      document.querySelectorAll("section, .card.expandable").forEach(section => {
+        const text = section.innerText.toLowerCase();
+        if (text.includes(query)) {
+          matchFound = true;
+
+          // If expandable card matched → expand it
+          if (section.classList.contains("expandable") && !section.classList.contains("active")) {
+            section.classList.add("active");
+          }
+
+          // Highlight matches
+          const regex = new RegExp(query, "gi");
+          section.innerHTML = section.innerHTML.replace(
+            regex,
+            match => `<mark style="background:#32cd32; color:#000;">${match}</mark>`
+          );
+
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+
+      if (!matchFound) {
+        // Create full-screen 404 overlay
+        const noResult = document.createElement("div");
+        noResult.id = "no-results";
+        noResult.innerHTML = `<h2>404</h2><p>Not Found</p>`;
+        document.body.appendChild(noResult);
+
+        // Hide main content
+        document.body.style.overflow = 'hidden';
+
+        // Auto-hide after 3 seconds
+        setTimeout(() => {
+            noResult.classList.add('fade-out');
+            document.body.style.overflow = 'auto';
+            setTimeout(() => noResult.remove(), 500); // Remove from DOM after transition
+        }, 2000);
+      }
+    }
+    nav.classList.remove("show");
+    searchInput.blur();
+  });
+
+  // ---------------- CLEAR SEARCH RESET ----------------
+  searchInput.addEventListener("input", function () {
+    const query = searchInput.value.trim().toLowerCase();
+    if (query === "") {
+      // Remove highlights
+      document.querySelectorAll("mark").forEach(mark => {
+        const parent = mark.parentNode;
+        parent.replaceChild(document.createTextNode(mark.textContent), mark);
+        parent.normalize();
+      });
+
+      // Remove 404 if exists
+      const old404 = document.getElementById("no-results");
+      if (old404) old404.remove();
+
+      // Show all sections & footer again
+      document.querySelectorAll("section, footer").forEach(el => {
+        el.style.display = "block";
+      });
+
+      // Reset About/Contact hidden by default
+      about.style.display = "none";
+      contact.style.display = "none";
+      feedback.style.display = "none";
+      subscribe.style.display = "none";
+    }
+  });
+  
+  // ---------------- SCROLL TO TOP ----------------
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.scrollToTop = scrollToTop;
+</script>
+</body>
+</html>
+
