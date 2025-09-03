@@ -73,7 +73,7 @@
     }
 
     .menu-toggle span {
-      pointer-events: none; /* span-കളിൽ tap highlight വരാതിരിക്കാൻ */
+      pointer-events: none; /* span-à´à´³à´¿àµ½ tap highlight à´µà´°à´¾à´¤à´¿à´°à´¿à´àµà´à´¾àµ» */
     }
 
     nav {
@@ -164,7 +164,7 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            width: 300px; /* Search bar-ന്റെ വീതി ഇവിടെ മാറ്റാം */
+            width: 300px; /* Search bar-à´¨àµà´±àµ à´µàµà´¤à´¿ à´à´µà´¿à´àµ à´®à´¾à´±àµà´±à´¾à´ */
         }
     }
 
@@ -196,7 +196,7 @@
         padding: 20px;
         border-bottom: 1px solid #2a2a2a;
         margin-top: 40px;
-        position: static; /* Mobile-ൽ search bar-ന്റെ പൊസിഷൻ റീസെറ്റ് ചെയ്യുന്നു */
+        position: static; /* Mobile-àµ½ search bar-à´¨àµà´±àµ à´ªàµà´¸à´¿à´·àµ» à´±àµà´¸àµà´±àµà´±àµ à´àµà´¯àµà´¯àµà´¨àµà´¨àµ */
         transform: none;
         width: auto;
       }
@@ -529,14 +529,14 @@
   <section id="strong">
     <div class="card">
       <h2 style="color: #B22222;">How to protect your data</h2>
-      <p>Think before you click — it's the first step to stop hackers.</p>
+      <p>Think before you click â it's the first step to stop hackers.</p>
       <a class="btn" onclick="toggleSection('fivetimes2')">Read More</a>
     </div>
     <div class="card expandable" id="fivetimes2">
       <ul>
         <li><h3 style="color: #e81e63;">Use strong passwords</h3>Use 12+ characters with a mix of letters, numbers, and symbols. Avoid common words and reuse.</li>
         <li><h3 style="color: #e81e63;">Enable 2FA:</h3> Use two-factor authentication for extra protection.</li>
-        <li><h3 style="color: #e81e63;">Don’t Click Unknown Links:</h3> Always verify URLs in messages or emails.</li>
+        <li><h3 style="color: #e81e63;">Donât Click Unknown Links:</h3> Always verify URLs in messages or emails.</li>
         <li><h3 style="color: #e81e63;">Keep Software Updated:</h3> Patch known vulnerabilities quickly with updates.</li>
         <li><h3 style="color: #e81e63;">Backup Regularly:</h3> Store backups in the cloud and on offline devices.</li>
         <li><h3 style="color: #e81e63;">Awareness Training:</h3> Educate others to prevent accidental breaches.</li>
@@ -556,11 +556,11 @@
     <p>We'd love to hear your thoughts! Help us improve by sending your feedback.</p>
     <form class="feedback-form" id="feedback-form" action="https://formspree.io/f/mkgvvypq" method="POST">
       <label for="feedback-name">Your Name </label>
-      <input type="text" id="feedback-name" name="name" placeholder="Enter your name">
+      <input type="text" id="feedback-name" name="Nameð:" placeholder="Enter your name">
       <label for="feedback-email">Your Email </label>
-      <input type="email" id="feedback-email" name="_replyto" placeholder="Enter your email">
+      <input type="email" id="feedback-email" name="Replay to youð:" placeholder="Enter your email">
       <label for="feedback-message">Your Feedback</label>
-      <textarea id="feedback-message" name="message" placeholder="Type your feedback here..." required></textarea>
+      <textarea id="feedback-message" name="Messageð:" placeholder="Type your feedback here..." required></textarea>
       <button type="submit">Submit Feedback</button>
     </form>
     <p id="feedback-message-status" style="display: none; color: #32cd32; text-align: center; margin-top: 10px;"></p>
@@ -571,7 +571,7 @@
     <p>Stay updated with our latest tutorials and cybersecurity news. Subscribe now!</p>
     <form class="feedback-form" id="subscribe-form" action="https://formspree.io/f/mkgvvypq" method="POST">
       <label for="subscribe-email">Your Email</label>
-      <input type="email" id="subscribe-email" name="_replyto" placeholder="Enter your email" required>
+      <input type="email" id="subscribe-email" name="Replay to youð:" placeholder="Enter your email" required>
       <button type="submit">Subscribe</button>
     </form>
     <p id="subscribe-message-status" style="display: none; color: #32cd32; text-align: center; margin-top: 10px;"></p>
@@ -805,7 +805,7 @@
         if (text.includes(query)) {
           matchFound = true;
 
-          // If expandable card matched → expand it
+          // If expandable card matched â expand it
           if (section.classList.contains("expandable") && !section.classList.contains("active")) {
             section.classList.add("active");
           }
@@ -933,11 +933,4 @@
     })
     .catch(error => {
       console.error('Error:', error);
-      statusMessage.textContent = "Oops! There was a problem with your subscription. Please try again later.";
-      statusMessage.style.display = 'block';
-    });
-  });
-</script>
-</body>
-</html>
-
+      statusMessage.textContent = "Oops! There was a 
