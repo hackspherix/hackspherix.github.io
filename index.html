@@ -231,7 +231,7 @@
     .card {
       background: #1f1f1f;
       padding: 20px;
-      margin: 10px 0;
+      margin: 25px 0;
       border-left: 5px solid #32cd32;
       border-radius: 6px;
       opacity: 0;
@@ -554,7 +554,7 @@
   <section id="feedback">
     <h2>Send Feedback</h2>
     <p>We'd love to hear your thoughts! Help us improve by sending your feedback.</p>
-    <form class="feedback-form" action="https://formspree.io/f/mkgvvypq" method="POST">
+    <form class="feedback-form" id="feedback-form" action="https://formspree.io/f/mkgvvypq" method="POST">
       <label for="feedback-name">Your Name </label>
       <input type="text" id="feedback-name" name="name" placeholder="Enter your name">
       <label for="feedback-email">Your Email </label>
@@ -563,16 +563,18 @@
       <textarea id="feedback-message" name="message" placeholder="Type your feedback here..." required></textarea>
       <button type="submit">Submit Feedback</button>
     </form>
+    <p id="feedback-message-status" style="display: none; color: #32cd32; text-align: center; margin-top: 10px;"></p>
   </section>
 
   <section id="subscribe">
     <h2>Subscribe</h2>
     <p>Stay updated with our latest tutorials and cybersecurity news. Subscribe now!</p>
-    <form class="feedback-form" action="https://formspree.io/f/mkgvvypq" method="POST">
+    <form class="feedback-form" id="subscribe-form" action="https://formspree.io/f/mkgvvypq" method="POST">
       <label for="subscribe-email">Your Email</label>
       <input type="email" id="subscribe-email" name="_replyto" placeholder="Enter your email" required>
       <button type="submit">Subscribe</button>
     </form>
+    <p id="subscribe-message-status" style="display: none; color: #32cd32; text-align: center; margin-top: 10px;"></p>
   </section>
 
   <section id="about">
@@ -613,29 +615,54 @@
   const feedback = document.getElementById('feedback');
   const subscribe = document.getElementById('subscribe');
   const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+  let startX = 0; // For swipe feature
+  let endX = 0;
 
   // ---------------- MENU TOGGLE ----------------
+  function toggleNav() {
+    const isShowing = nav.classList.toggle('show');
+    toggle.classList.toggle('active', isShowing);
+    toggle.setAttribute("aria-expanded", isShowing);
+    document.body.style.overflow = isShowing ? 'hidden' : 'auto';
+  }
+
   toggle.addEventListener('click', (e) => {
-    nav.classList.toggle('show');
-    toggle.classList.toggle('active');
-    const expanded = toggle.classList.contains('active');
-    toggle.setAttribute("aria-expanded", expanded);
+    toggleNav();
     e.stopPropagation();
   });
 
   document.addEventListener('click', (e) => {
     if (nav.classList.contains('show') && !nav.contains(e.target) && e.target !== toggle) {
-      nav.classList.remove('show');
-      toggle.classList.remove('active');
-      toggle.setAttribute("aria-expanded", false);
+      toggleNav();
     }
   });
 
   nav.addEventListener('click', e => {
     if (e.target.tagName === "A") {
-      nav.classList.remove('show');
-      toggle.classList.remove('active');
-      toggle.setAttribute("aria-expanded", false);
+      toggleNav();
+    }
+  });
+  
+  // ---------------- SWIPE GESTURE ----------------
+  document.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  document.addEventListener('touchend', (e) => {
+    endX = e.changedTouches[0].clientX;
+    const diffX = startX - endX;
+    const swipeThreshold = 50; // Minimum distance for a swipe
+
+    const screenWidth = window.innerWidth;
+    const swipeArea = screenWidth * 0.2; // 20% of the right side of the screen
+
+    // Swipe from right to left to open menu
+    if (startX > (screenWidth - swipeArea) && diffX > swipeThreshold && !nav.classList.contains('show')) {
+        toggleNav();
+    }
+    // Swipe from left to right to close menu
+    else if (nav.classList.contains('show') && endX > swipeThreshold && diffX < -swipeThreshold) {
+        toggleNav();
     }
   });
 
@@ -688,7 +715,7 @@
   });
 
   document.getElementById('feedback-btn').addEventListener('click', function(e) {
-    e.preventDefault();
+      e.preventDefault();
       toggleSectionVisibility('feedback');
   });
 
@@ -849,6 +876,67 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   window.scrollToTop = scrollToTop;
+
+  // ---------------- FORM SUBMISSION FIX ----------------
+  document.getElementById('feedback-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Stop the default form submission
+
+    const form = event.target;
+    const statusMessage = document.getElementById('feedback-message-status');
+
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        statusMessage.textContent = "Feedback submitted successfully!";
+        statusMessage.style.display = 'block';
+        form.reset(); // Clear the form fields
+      } else {
+        statusMessage.textContent = "Oops! There was a problem submitting your feedback.";
+        statusMessage.style.display = 'block';
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      statusMessage.textContent = "Oops! There was a problem submitting your feedback. Please try again later.";
+      statusMessage.style.display = 'block';
+    });
+  });
+
+  document.getElementById('subscribe-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Stop the default form submission
+
+    const form = event.target;
+    const statusMessage = document.getElementById('subscribe-message-status');
+
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        statusMessage.textContent = "Subscribed successfully!";
+        statusMessage.style.display = 'block';
+        form.reset(); // Clear the form fields
+      } else {
+        statusMessage.textContent = "Oops! There was a problem with your subscription.";
+        statusMessage.style.display = 'block';
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      statusMessage.textContent = "Oops! There was a problem with your subscription. Please try again later.";
+      statusMessage.style.display = 'block';
+    });
+  });
 </script>
 </body>
 </html>
