@@ -1,7 +1,8 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0f0f0f;              color: #f0f0f0;
+  background-color: #0f0f0f;
+  color: #f0f0f0;
   overflow-x: hidden;
 }
 
@@ -49,9 +50,9 @@ header h1 {
   margin: 4px 0;
 }
 
-   .menu-toggle {
-      -webkit-tap-highlight-color: transparent;
-    }
+.menu-toggle {
+  -webkit-tap-highlight-color: transparent;
+}
 
     .menu-toggle:focus {
        outline: none;
@@ -492,4 +493,3 @@ footer {
   text-align: center;
   margin-top: 10px;
 }
-
