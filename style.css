@@ -1,8 +1,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0f0f0f;
-  color: #f0f0f0;
+  background-color: #0f0f0f;              color: #f0f0f0;
   overflow-x: hidden;
 }
 
@@ -50,13 +49,17 @@ header h1 {
   margin: 4px 0;
 }
 
-.menu-toggle:focus {
-   outline: none;
-}
+   .menu-toggle {
+      -webkit-tap-highlight-color: transparent;
+    }
 
-.menu-toggle span {
-  pointer-events: none;
-}
+    .menu-toggle:focus {
+       outline: none;
+    }
+
+    .menu-toggle span {
+      pointer-events: none; /* span-കളിൽ tap highlight വരാതിരിക്കാൻ */
+    }
 
 nav {
   display: flex;
@@ -489,5 +492,4 @@ footer {
   text-align: center;
   margin-top: 10px;
 }
-
 
