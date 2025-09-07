@@ -4,7 +4,7 @@
   "description": "A comprehensive resource for cybersecurity and cyber awareness.",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#0f0f0f",
+  "background_color": "blue",
   "theme_color": "#000000",
   "icons": [
     {
