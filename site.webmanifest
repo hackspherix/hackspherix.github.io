@@ -2,23 +2,23 @@
   "name": "HackSpherix",
   "short_name": "Cyber Awareness",
   "description": "A comprehensive resource for cybersecurity and cyber awareness.",
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#0f0f0f",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "https://placehold.co/72x72/000/32cd32?text=HA",
+      "src": "android-chrome-192x192.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "https://placehold.co/96x96/000/32cd32?text=HA",
+      "src": "android-chrome-192x192.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "https://placehold.co/128x128/000/32cd32?text=HA",
+      "src": "android-chrome-192x192.png",
       "sizes": "128x128",
       "type": "image/png"
     },
