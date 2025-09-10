@@ -263,7 +263,7 @@ section {
   margin: auto;
 }
 
-#about, #contact, #feedback, #subscribe {
+#about, #contact, #feedback, #subscribe, #videos {
   display: none;
 }
 
@@ -298,15 +298,33 @@ h2 {
   transition: all 0.2s ease;
 }
 
-#contact, #share, #about, #feedback, #subscribe {
+#contact, #share, #about, #feedback, #subscribe, #videos {
   opacity: 0;
   transform: translateY(50px);
   transition: all 0.6s ease-out;
 }
 
-#contact.show, #share.show, #about.show, #feedback.show, #subscribe.show {
+#contact.show, #share.show, #about.show, #feedback.show, #subscribe.show, #videos.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 footer {
@@ -550,7 +568,6 @@ footer {
   text-align: center;
   margin-top: 10px;
 }
-
  
   </style>
 
@@ -577,6 +594,7 @@ footer {
           <button type="submit"><i class="fas fa-search"></i></button>
         </form>
       </div>
+      <li><a href="#videos" id="videos-btn"><i class="fa-solid fa-play-circle"></i> Videos</a></li>
       <li><a href="#subscribe" id="subscribe-btn"><i class="fa-solid fa-envelope"></i> Subscribe</a></li>
       <li><a href="#feedback" id="feedback-btn"><i class="fa-solid fa-comment-dots"></i> Feedback</a></li>
       <li><a href="#about" id="about-btn"><i class="fa-solid fa-info-circle"></i> About</a></li>
@@ -743,6 +761,24 @@ footer {
     </div>
   </section>
 
+  <section id="videos">
+    <h2>Cybersecurity Videos</h2>
+    <div class="card">
+      <h3 class="card-title">What is Phishing?</h3>
+      <p>A short animated video explaining what phishing is and how to spot it.</p>
+      <div class="video-container">
+        <video width="560" height="auto" controls><source src="Phishing.mp4" type="video/mp4"></video>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">How Ransomware Works</h3>
+      <p>An in-depth look at how ransomware encrypts your files and what you can do to prevent it.</p>
+      <div class="video-container">
+        <video width="560" height="auto" controls><source src="How Does Ransomware Work_.mp4" type="video/mp4"></video>
+      </div>
+    </div>
+  </section>
+
   <section id="contact">
     <h2>Contact</h2>
     <p>Want to collaborate or ask a question? Reach out via email:</p>
@@ -813,6 +849,7 @@ const toggle = document.getElementById('menu-toggle');
   const about = document.getElementById('about');
   const feedback = document.getElementById('feedback');
   const subscribe = document.getElementById('subscribe');
+  const videos = document.getElementById('videos');
   const scrollToTopBtn = document.getElementById('scrollToTopBtn');
   let startX = 0; // For swipe feature
   let endX = 0;
@@ -874,7 +911,7 @@ const toggle = document.getElementById('menu-toggle');
         card.classList.add('show');
       }
     });
-    [contact, about, feedback, subscribe].forEach(section => {
+    [contact, about, feedback, subscribe, videos].forEach(section => {
       const sectionTop = section.getBoundingClientRect().top;
       if (sectionTop < triggerBottom) {
         section.classList.add('show');
@@ -912,6 +949,11 @@ const toggle = document.getElementById('menu-toggle');
       toggleSectionVisibility('contact');
     });
   });
+  
+  document.getElementById('videos-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    toggleSectionVisibility('videos');
+  });
 
   document.getElementById('feedback-btn').addEventListener('click', function(e) {
       e.preventDefault();
@@ -925,7 +967,7 @@ const toggle = document.getElementById('menu-toggle');
 
   function toggleSectionVisibility(sectionId) {
     const section = document.getElementById(sectionId);
-    [contact, about, feedback, subscribe].forEach(s => {
+    [contact, about, feedback, subscribe, videos].forEach(s => {
       s.style.display = 'none';
       if (s.classList.contains('show')) s.classList.remove('show');
     });
@@ -1067,6 +1109,7 @@ const toggle = document.getElementById('menu-toggle');
       contact.style.display = "none";
       feedback.style.display = "none";
       subscribe.style.display = "none";
+      videos.style.display = "none";
     }
   });
 
@@ -1140,5 +1183,4 @@ const toggle = document.getElementById('menu-toggle');
 </script>
 </body>
 </html>
-
 
