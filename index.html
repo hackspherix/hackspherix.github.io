@@ -767,14 +767,14 @@ footer {
       <h3 class="card-title">What is Phishing?</h3>
       <p>A short animated video explaining what phishing is and how to spot it.</p>
       <div class="video-container">
-        <video width="560" height="auto" controls><source src="icons/phising.mp4" type="video/mp4"></video>
+        <video width="560" height="auto" controls onplay="pauseOtherVideos(this)"><source src="icons/phising.mp4" type="video/mp4"></video>
       </div>
     </div>
     <div class="card">
       <h3 class="card-title">How Ransomware Works</h3>
       <p>An in-depth look at how ransomware encrypts your files and what you can do to prevent it.</p>
       <div class="video-container">
-        <video width="560" height="auto" controls><source src="icons/ransomware.mp4" type="video/mp4"></video>
+        <video width="560" height="auto" controls onplay="pauseOtherVideos(this)"><source src="icons/ransomware.mp4" type="video/mp4"></video>
       </div>
     </div>
   </section>
@@ -1178,8 +1178,17 @@ const toggle = document.getElementById('menu-toggle');
       statusMessage.textContent = "Oops! There was a problem with your subscription. Please try again later.";
       statusMessage.style.display = 'block';
     });
-  });   
-
+  });
+  
+  // ---------------- VIDEO CONTROL ----------------
+  function pauseOtherVideos(currentVideo) {
+      document.querySelectorAll('video').forEach(video => {
+          if (video !== currentVideo && !video.paused) {
+              video.pause();
+          }
+      });
+  }
+  window.pauseOtherVideos = pauseOtherVideos;
 </script>
 </body>
 </html>
