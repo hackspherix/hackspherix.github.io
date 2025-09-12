@@ -116,10 +116,11 @@ header h1 {
     }
 
     .menu-toggle span {
-      pointer-events: none; /* span-കളിൽ tap highlight വരാതിരിക്കാൻ */
+      pointer-events: none;
     }
 
 nav {
+
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -160,8 +161,17 @@ nav a:hover::after {
   transform: scaleX(1);
 }
 
+nav h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
 .search-wrapper {
   display: block;
+  max-width: 600px;
+  margin: 90px auto 20px;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .search-wrapper form {
@@ -190,6 +200,7 @@ nav a:hover::after {
   cursor: pointer;
 }
 
+
 .menu-toggle.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -202,14 +213,6 @@ nav a:hover::after {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-@media (min-width: 769px) {
-    .search-wrapper {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 300px;
-    }
-}
 
 @media (max-width: 768px) {
   nav {
@@ -234,16 +237,6 @@ nav a:hover::after {
     display: block;
   }
 
-  .search-wrapper {
-    display: block;
-    padding: 20px;
-    border-bottom: 1px solid #2a2a2a;
-    margin-top: 40px;
-    position: static;
-    transform: none;
-    width: auto;
-  }
-
   nav a {
     display: flex;
     align-items: center;
@@ -257,10 +250,20 @@ nav a:hover::after {
   }
 }
 
+@media (min-width: 769px) {
+  nav h1 {
+    display: none;
+  }
+}
+
 section {
-  padding: 100px 20px 60px;
+  padding: 10px 20px 60px;
   max-width: 1000px;
   margin: auto;
+}
+
+#tutorials {
+    padding-top: 0;
 }
 
 #about, #contact, #feedback, #subscribe, #videos {
@@ -588,12 +591,7 @@ footer {
       <span></span>
     </div>
     <nav id="nav-menu">
-      <div class="search-wrapper">
-        <form id="search-form">
-          <input type="search" id="search-input" placeholder="Search here..." />
-          <button type="submit"><i class="fas fa-search"></i></button>
-        </form>
-      </div>
+      <h1>Menu</h1>
       <li><a href="#videos" id="videos-btn"><i class="fa-solid fa-play-circle"></i> Videos</a></li>
       <li><a href="#subscribe" id="subscribe-btn"><i class="fa-solid fa-envelope"></i> Subscribe</a></li>
       <li><a href="#feedback" id="feedback-btn"><i class="fa-solid fa-comment-dots"></i> Feedback</a></li>
@@ -603,6 +601,12 @@ footer {
     </nav>
   </header>
 
+  <div class="search-wrapper">
+    <form id="search-form">
+      <input type="search" id="search-input" placeholder="Search here..." />
+      <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
   <div id="loader-wrapper">
     <div id="loader"></div>
   </div>
