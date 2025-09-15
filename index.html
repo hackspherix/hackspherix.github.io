@@ -254,6 +254,10 @@ nav h1 {
   nav h1 {
     display: none;
   }
+  /* Hide share button on desktop */
+  #share-btn {
+    display: none;
+  }
 }
 
 section {
@@ -597,7 +601,7 @@ footer {
       <li><a href="#feedback" id="feedback-btn"><i class="fa-solid fa-comment-dots"></i> Feedback</a></li>
       <li><a href="#about" id="about-btn"><i class="fa-solid fa-info-circle"></i> About</a></li>
       <li><a href="#contact" id="contact-btn"><i class="fa-solid fa-user"></i> Contact</a></li>
-      <li><a href="javascript:void(0);" onclick="sharePage()"><i class="fa-solid fa-share"></i> Share</a></li>
+      <li id="share-btn"><a href="javascript:void(0);" onclick="sharePage()"><i class="fa-solid fa-share"></i> Share</a></li>
     </nav>
   </header>
 
