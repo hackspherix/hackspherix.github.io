@@ -213,7 +213,7 @@
           const regex = new RegExp(query, "gi");
           section.innerHTML = section.innerHTML.replace(
             regex,
-            match => `<mark style="background:#32cd32; color:#000;">${match}</mark>`
+            match => `<mark style="background:#3300ff; box-shadow: 0 0 20px #3131314d; color:#fff;">${match}</mark>`
           );
 
           section.scrollIntoView({ behavior: "smooth", block: "start" });
