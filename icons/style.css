@@ -448,7 +448,7 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  box-shadow: 0 4px 20px #3131314d;
+  box-shadow: 0 8px 20px #3131314d;
   background-color: #fff;
   padding: 25px;
   border-radius: 8px;
