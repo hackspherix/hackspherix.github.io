@@ -226,6 +226,10 @@ nav h1 {
       z-index: 1000;
       gap: 0;
     }  
+
+    .menu-toggle {
+        display: flex;
+    }
 }
 
 nav.show {
