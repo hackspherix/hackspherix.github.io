@@ -581,7 +581,7 @@ h2 {
     margin-top: 10px;
 }
 
-#contact-links a {
+.contact-email i {
     margin: 0 10px;
     color: #3300ff;
     text-decoration: none;
