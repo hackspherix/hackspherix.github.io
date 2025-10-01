@@ -334,7 +334,7 @@ h2 {
     height: 100%;
 }
   
-footer {
+.footer {
     text-align: center;
     padding: 30px 10px;
     background: #303030;
@@ -579,4 +579,10 @@ footer {
     display: none;                                                                                  color: #3300ff;
     text-align: center;
     margin-top: 10px;
+}
+
+#contact-links a {
+    margin: 0 10px;
+    color: #3300ff;
+    text-decoration: none;
 }
