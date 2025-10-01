@@ -562,11 +562,11 @@ footer {
     text-decoration: none;
 }
 
-footer-links a:hover {
+.footer-links a:hover {
   color: #2288ff;
   text-shadow: 0 0 5px #8800ff00;
 }
-/* New CSS for footer link icons to give some spacing */
+
 .footer-links a i {
   margin-right: 5px;
 }
