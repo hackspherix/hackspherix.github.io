@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hackspherix.github.io/sitemap.xml
